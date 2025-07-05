@@ -16,11 +16,11 @@ and centralised management.
 
 Babu provides three core components:
 
-1. **`badu-server`** - SSH server replacing OpenSSH with dual functionality:
+1. **`babu-server`** - SSH server replacing OpenSSH with dual functionality:
    - Virtual ports for device clients (no TCP binding)
    - Full shell access for administrators
-2. **`badu`** - Specialised SSH client with integrated service support
-3. **`badu-proxy`** - Tool for admin access to devices via virtual ports
+2. **`babu`** - Specialised SSH client with integrated service support
+3. **`babu-proxy`** - Tool for admin access to devices via virtual ports
 
 ## Key Features
 
@@ -32,7 +32,7 @@ Babu provides three core components:
 
 ## Components
 
-### `badu-server`
+### `babu-server`
 
 A complete SSH server implementation with innovative virtual port technology:
 
@@ -47,7 +47,7 @@ A complete SSH server implementation with innovative virtual port technology:
 - Manages client registration and re-keying
 - Detects key compromise through concurrent usage
 
-### `badu-proxy`
+### `babu-proxy`
 
 A reverse proxy tool that:
 
@@ -56,7 +56,7 @@ A reverse proxy tool that:
 - Creates port forwarding for client-side services
 - Integrates with SSH `ProxyCommand` for transparent access
 
-### `badu`
+### `babu`
 
 The intelligent SSH client that:
 
@@ -79,15 +79,15 @@ New clients can self-register using factory keys:
 
 ```bash
 # Install Babu
-go install darvaza.org/babu/cmd/badu@latest
-go install darvaza.org/babu/cmd/badu-server@latest
-go install darvaza.org/babu/cmd/badu-proxy@latest
+go install darvaza.org/babu/cmd/babu@latest
+go install darvaza.org/babu/cmd/babu-server@latest
+go install darvaza.org/babu/cmd/babu-proxy@latest
 
 # Start the server
-badu-server --config /etc/babu/server.yaml
+babu-server --config /etc/babu/server.yaml
 
 # Connect a client
-badu connect --server babu.example.com --port 30001
+babu connect --server babu.example.com --port 30001
 ```
 
 ## Documentation
@@ -140,8 +140,8 @@ Babu is released under the [MIT License][license-file].
 ## Support
 
 - **Documentation**: See the [docs/][docs] directory
-- **Issues**: [GitHub Issues][badu-issues]
-- **Discussions**: [GitHub Discussions][badu-discussions]
+- **Issues**: [GitHub Issues][babu-issues]
+- **Discussions**: [GitHub Discussions][babu-discussions]
 - **Security**: See [SECURITY.md][security]
 
 ## Acknowledgements
@@ -169,7 +169,7 @@ library and benefits from the Go community's work on SSH tooling.
 [license-file]: LICENSE.txt
 [security]: SECURITY.md
 
-[badu-issues]: https://github.com/darvaza-proxy/babu/issues
-[badu-discussions]: https://github.com/darvaza-proxy/babu/discussions
+[babu-issues]: https://github.com/darvaza-proxy/babu/issues
+[babu-discussions]: https://github.com/darvaza-proxy/babu/discussions
 
 [go-ssh]: https://pkg.go.dev/golang.org/x/crypto/ssh

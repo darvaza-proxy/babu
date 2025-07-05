@@ -1,9 +1,9 @@
-# Badu-Proxy Design
+# Babu-Proxy Design
 
 ## Overview
 
-`badu-proxy` serves as the unified interface for accessing devices through
-badu-server's virtual ports. It provides both ProxyCommand functionality for
+`babu-proxy` serves as the unified interface for accessing devices through
+babu-server's virtual ports. It provides both ProxyCommand functionality for
 transparent SSH access and a CLI for system management.
 
 ## Dual Purpose Design
@@ -14,14 +14,14 @@ Used transparently by SSH tools to establish connections:
 
 ```bash
 # Direct usage
-ssh -o 'ProxyCommand badu-proxy connect %h' rogueN
+ssh -o 'ProxyCommand babu-proxy connect %h' rogueN
 
 # Via .ssh/config
 Host rogue*
-    ProxyCommand badu-proxy connect %h
+    ProxyCommand babu-proxy connect %h
 
 Host client-*
-    ProxyCommand badu-proxy connect %h
+    ProxyCommand babu-proxy connect %h
 ```
 
 Once configured, all SSH-based tools work seamlessly:
@@ -39,23 +39,23 @@ Administrative interface for querying and managing the system:
 
 ```bash
 # List clients
-badu-proxy list                     # All clients
-badu-proxy list --status=online     # Connected clients
-badu-proxy list --status=dropped    # Recently disconnected
-badu-proxy list --compromised       # Clients with compromised keys
+babu-proxy list                     # All clients
+babu-proxy list --status=online     # Connected clients
+babu-proxy list --status=dropped    # Recently disconnected
+babu-proxy list --compromised       # Clients with compromised keys
 
 # Client information
-badu-proxy show rogueN              # Detailed client info
-badu-proxy status rogueN            # Connection status
-badu-proxy history rogueN           # Connection history
+babu-proxy show rogueN              # Detailed client info
+babu-proxy status rogueN            # Connection status
+babu-proxy history rogueN           # Connection history
 
 # Registration operations
-badu-proxy register rogueN --crm-id=12345 --hostname=client-name
-badu-proxy rekey client-name        # Initiate rekeying
+babu-proxy register rogueN --crm-id=12345 --hostname=client-name
+babu-proxy rekey client-name        # Initiate rekeying
 
 # Compromise management
-badu-proxy list --key=<keyfingerprint>  # Find all clients using a key
-badu-proxy quarantine --key=<keyfingerprint>  # Mark key as compromised
+babu-proxy list --key=<keyfingerprint>  # Find all clients using a key
+babu-proxy quarantine --key=<keyfingerprint>  # Mark key as compromised
 ```
 
 ## Architecture
@@ -67,14 +67,14 @@ graph TB
         Admin[Admin Commands]
     end
 
-    subgraph "Badu Proxy"
+    subgraph "Babu Proxy"
         CLI[CLI Parser]
         Resolver[Client Resolver]
         ConnProxy[Connection Proxy]
     end
 
     subgraph "Backend"
-        BaduServer[badu-server]
+        BabuServer[babu-server]
         VirtualPorts[Virtual Port Registry]
         ConfigStore[(Git Config)]
     end
@@ -86,8 +86,8 @@ graph TB
     ConnProxy --> Resolver
 
     Resolver --> ConfigStore
-    Resolver --> BaduServer
-    BaduServer --> VirtualPorts
+    Resolver --> BabuServer
+    BabuServer --> VirtualPorts
 ```
 
 ## Key Features
@@ -97,13 +97,13 @@ graph TB
 The proxy resolves client identities:
 
 1. Check Git configuration for client details
-2. Lookup virtual port in badu-server
+2. Lookup virtual port in babu-server
 3. Establish connection through virtual port
 4. Handle connection multiplexing
 
 ### Connection Telemetry
 
-`badu-server` provides rich telemetry that `badu-proxy` exposes:
+`babu-server` provides rich telemetry that `babu-proxy` exposes:
 
 - **Connect events**: timestamp, source IP, auth method
 - **Disconnect events**: timestamp, duration, reason
@@ -121,16 +121,16 @@ When a key is used by multiple clients:
 
 ```bash
 # Compromise workflow
-badu-proxy list --compromised           # List all compromised clients
-badu-proxy show --key=<fingerprint>     # Show all clients using key
-badu-proxy rekey original-client        # Generate new key for legitimate client
-badu-proxy register clone-1 --crm-id=X  # Re-register legitimate clones
-badu-proxy revoke --key=<fingerprint>   # Block compromised key after recovery
+babu-proxy list --compromised           # List all compromised clients
+babu-proxy show --key=<fingerprint>     # Show all clients using key
+babu-proxy rekey original-client        # Generate new key for legitimate client
+babu-proxy register clone-1 --crm-id=X  # Re-register legitimate clones
+babu-proxy revoke --key=<fingerprint>   # Block compromised key after recovery
 ```
 
 ## Client Configuration
 
-`badu-proxy` uses Git-backed configuration for client management:
+`babu-proxy` uses Git-backed configuration for client management:
 
 ```yaml
 # Client configuration
@@ -146,7 +146,7 @@ clients:
     services: ["ntp", "dns", "socks5"]
 ```
 
-All client connections are handled through badu-server's virtual port system.
+All client connections are handled through babu-server's virtual port system.
 
 ## Implementation Considerations
 
@@ -183,7 +183,7 @@ When detecting compromised keys:
 
 ```bash
 # Generate .ssh/config entries
-badu-proxy generate-config > ~/.ssh/config.d/babu
+babu-proxy generate-config > ~/.ssh/config.d/babu
 
 # Include in main SSH config
 echo "Include ~/.ssh/config.d/*" >> ~/.ssh/config
@@ -193,12 +193,12 @@ echo "Include ~/.ssh/config.d/*" >> ~/.ssh/config
 
 ```bash
 # Check before operations
-if badu-proxy status "$CLIENT" | grep -q online; then
+if babu-proxy status "$CLIENT" | grep -q online; then
     ssh "$CLIENT" "command"
 fi
 
 # Bulk operations
-badu-proxy list --status=online | while read client; do
+babu-proxy list --status=online | while read client; do
     ssh "$client" "update-command"
 done
 ```
