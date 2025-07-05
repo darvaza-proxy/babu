@@ -17,6 +17,7 @@ deploy, and operate Babu in your environment.
 - [Design Decisions](architecture/design-decisions.md) - Key design choices
 - [Port Architecture](architecture/port-architecture.md) - Logical port model
 - [Client Model](architecture/client-model.md) - Client organization
+- [Badu Proxy](architecture/badu-proxy.md) - Proxy component architecture
 - [Scaling](architecture/scaling.md) - Horizontal scaling design
 - [Security](architecture/security.md) - Security architecture
 

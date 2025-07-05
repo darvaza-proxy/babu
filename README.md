@@ -16,9 +16,11 @@ and centralised management.
 
 Babu provides three core components:
 
-1. **`badu-server`** - SSH server with port-based client identification
+1. **`badu-server`** - SSH server replacing OpenSSH with dual functionality:
+   - Virtual ports for device clients (no TCP binding)
+   - Full shell access for administrators
 2. **`badu`** - Specialised SSH client with integrated service support
-3. **`badu-proxy`** - Reverse SSH proxy for admin access to clients
+3. **`badu-proxy`** - Tool for admin access to devices via virtual ports
 
 ## Key Features
 
@@ -32,12 +34,17 @@ Babu provides three core components:
 
 ### `badu-server`
 
-The SSH server component that:
+A complete SSH server implementation with innovative virtual port technology:
 
-- Accepts client connections with key-based authentication
+- **For devices**: Handles `-R` port forwarding without TCP binding
+  - Virtual ports enable unlimited device connections
+  - Device user `babu` has restricted access via `authorized_keys`
+  - Compatible with standard SSH clients
+- **For administrators**: Provides full shell access
+  - Root and admin users get normal SSH shells
+  - System management capabilities
 - Provides integrated services (NTP, DNS, SOCKS5) via SSH channels
 - Manages client registration and re-keying
-- Supports capability-based access control per user
 - Detects key compromise through concurrent usage
 
 ### `badu-proxy`
