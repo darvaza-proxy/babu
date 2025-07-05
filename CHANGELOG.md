@@ -10,9 +10,9 @@ and this project adheres to [Semantic Versioning][semver].
 ### Added
 
 - Initial project scaffolding with three core binaries:
-  - `badu` - SSH client with Babu-specific features
-  - `badu-server` - SSH server with port-based client identification
-  - `badu-proxy` - Reverse SSH proxy for admin access to clients
+  - `babu` - SSH client with Babu-specific features
+  - `babu-server` - SSH server with port-based client identification
+  - `babu-proxy` - Reverse SSH proxy for admin access to clients
 - Build infrastructure (Makefile, version scripts, go.mod)
 - Development configuration (.editorconfig, revive linting)
 - CI/CD workflows (GitHub Actions build and Renovate)

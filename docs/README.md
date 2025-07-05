@@ -17,7 +17,7 @@ deploy, and operate Babu in your environment.
 - [Design Decisions](architecture/design-decisions.md) - Key design choices
 - [Port Architecture](architecture/port-architecture.md) - Logical port model
 - [Client Model](architecture/client-model.md) - Client organization
-- [Badu Proxy](architecture/badu-proxy.md) - Proxy component architecture
+- [Babu Proxy](architecture/babu-proxy.md) - Proxy component architecture
 - [Scaling](architecture/scaling.md) - Horizontal scaling design
 - [Security](architecture/security.md) - Security architecture
 
@@ -44,19 +44,19 @@ deploy, and operate Babu in your environment.
 
 ## Quick Links
 
-- [GitHub Repository][badu-git]
-- [Issue Tracker][badu-issues]
-- [Releases][badu-releases]
+- [GitHub Repository][babu-git]
+- [Issue Tracker][babu-issues]
+- [Releases][babu-releases]
 
 ## Getting Help
 
 - Check the documentation
 - Search existing issues
 - Ask in discussions
-- Contact: [oss@apptly.co][badu-contact]
+- Contact: [oss@apptly.co][babu-contact]
 
 <!-- references -->
-[badu-contact]: mailto:oss@apptly.co
-[badu-git]: https://github.com/darvaza-proxy/badu
-[badu-issues]: https://github.com/darvaza-proxy/badu/issues
-[badu-releases]: https://github.com/darvaza-proxy/badu/releases
+[babu-contact]: mailto:oss@apptly.co
+[babu-git]: https://github.com/darvaza-proxy/babu
+[babu-issues]: https://github.com/darvaza-proxy/babu/issues
+[babu-releases]: https://github.com/darvaza-proxy/babu/releases
